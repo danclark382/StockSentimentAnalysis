@@ -1,0 +1,20 @@
+{
+    "SPY": "SPDR S&P 500 ETF Trust",
+    "QQQ": "Invesco QQQ Trust",
+    "IWM": "iShares Russell 2000 ETF",
+    "DIA": "SPDR Dow Jones Industrial Average ETF Trust",
+    "VTI": "Vanguard Total Stock Market Index Fund ETF Shares",
+    "MDY": "SPDR S&P Midcap 400 ETF",
+    "DBC": "Invesco DB Commodity Index Tracking Fund",
+    "FEZ": "SPDR EURO STOXX 50 ETF",
+    "OEF": "iShares S&P 100 ETF",
+    "IWF": "iShares Russell 1000 Growth ETF",
+    "IWD": "iShares Russell 1000 Value ETF",
+    "PFF": "iShares Preferred and Income Securities ETF",
+    "VOO": "Vanguard S&P 500 ETF",
+    "IJH": "iShares Core S&P Mid-Cap ETF",
+    "IWO": "iShares Russell 2000 Growth ETF",
+    "IWN": "iShares Russell 2000 Value ETF",
+    "ACWI": "iShares MSCI ACWI ETF",
+    "IEMG": "iShares Core MSCI Emerging Markets ETF"
+}
