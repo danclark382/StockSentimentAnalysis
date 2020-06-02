@@ -225,6 +225,7 @@ def main():
         # Get search results
         response = twitter_search(twitter_api, q)
         if not response:
+            db_collection[key] = previous_collection[key]
             continue
         sentiment_lst = [t for t in response]
         # Get polarity scores for tweets
