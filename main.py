@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time
 import json
 import pytz
 import re
@@ -24,6 +24,7 @@ with open(r"tickers.json") as d:
 with open(r'previous_input.json', 'r') as d:
     previous_collection = json.load(d)
 
+    
 def oauth_login():
     # XXX: Go to  to create an app and get values
     # for these credentials that you'll need to provide in place of these
@@ -41,6 +42,7 @@ def oauth_login():
     
     twitter_api = twitter.Twitter(auth=auth)
     return twitter_api
+
 
 def twitter_search(twitter_api, q, max_results=300, **kw):
 
@@ -138,6 +140,7 @@ def get_polarity_score(tweets_lst):
     recent = (np.round(polarity_arr[0], decimals=2), tweets_lst[0]['text'])
     return polarity_arr, negative, positive, recent
 
+
 def append_results(arr, ticker, negative, positive, recent):
     """Calculate polarity measures
     
@@ -173,6 +176,7 @@ def append_results(arr, ticker, negative, positive, recent):
         }
     return polarity_dict
 
+
 def get_logo(stock):
     """Get logo of stock
     
@@ -184,11 +188,31 @@ def get_logo(stock):
     # Get logo
     return stock.get_logo()
 
-def get_iex_data(ticker):
+
+def check_time():
+    """Check if time is within market hours
+    
+    :returns: True if within market else False
+    :rtype: boolen
+    """
+    tz_NY = pytz.timezone('America/New_York')
+    current = datetime.now(tz_NY)
+    date = datetime.today()
+    open_time = datetime(date.year, date.month, date.day, 9, 30, 0, tzinfo=tz_NY)
+    close_time = datetime(date.year, date.month, date.day, 4, 0, 0, tzinfo=tz_NY)
+    if current > open_time and current < close_time:
+        return True
+    else:
+        return False
+    
+    
+def get_iex_data(ticker, cmp_id):
     """Get IEX data
     
     :param ticker: ticker to create Stock()
     :type ticker: string
+    :param cmp_id: key used in collection
+    :type cmp_id: string
     :returns: price change and logo
     :rtype: tuple
     """
@@ -198,6 +222,8 @@ def get_iex_data(ticker):
     if not logo:
         logo = get_logo(stock)
         tickers['logo'][ticker] = logo
+    if not check_time():
+        return previous_collection[cmp_id]['price'], logo
     iex_stock = stock.get_quote(displayPercent=True)
     # Get latest price
     price = str(iex_stock['latestPrice'])
@@ -233,7 +259,7 @@ def main():
         # Append polarity results
         db_collection[key] = append_results(arr, ticker, negative, positive, recent)
         # Get IEX data
-        price, logo = get_iex_data(ticker)
+        price, logo = get_iex_data(ticker, key)
         db_collection[key]['logo'] = logo
         db_collection[key]['price'] = price
         db_collection[key]['last_updated'] = datetime.now(tz_NY).strftime(date_fmt)
