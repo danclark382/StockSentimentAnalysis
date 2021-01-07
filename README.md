@@ -9,20 +9,15 @@ This is the final project for INFO 440: Social Media Data Analysis. The goal of 
 # Technologies
 AWS EC2: AWS EC2 was utilized to automate the script running which was done via a CRON job. The frequency is set to run every hour on the thirty minute mark. 
 
-Firebase DB: Firebase DB was utilized to store the data. It was a good choice due to the flexbility of running in the cloud, scalability, and the time-series nature of it. 
+Firebase DB: Firebase DB was utilized to store the data. Firebase worked well since it is cloud-hosted, scalable, and synchronized in realtime to the connected clients. Firebase is a NoSQL database and data is stored via JSON. This flexibility allowed for quick feature extension and table maniuplation.
 
 Python: All Scripts were created in python.
 
 React: The dashboard was built using React.
 
 # Illustrations
-# Examples of us
+![Image 1](illustrations/img1.png)
+# Examples of use
 # Project status 
+This project is no longer being updated, but the code provides an excellent starting point for a dashboard subscribing to social media data!
 
-INFO 440: Social Media Data Analysis
-	Scrapes Twitter for tweets containing $Ticker
-	Pulls in pricing data from IEX
-	Gets Sentiment of Tweets
-	Publishes results to Firebase DB
-	Dashboard Written in React
-	Published on AWS EC2 to run every 30 minutes via CRON
